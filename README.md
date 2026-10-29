@@ -43,10 +43,33 @@ This deploys Wazuh 4.14.7 single-node (manager, indexer and dashboard). Admin po
 | API       | https://localhost:55000  |
 | Indexer   | https://localhost:9200   |
 
+## MCP server
+
+Requirements: [uv](https://docs.astral.sh/uv/).
+
+```bash
+cp .env.example .env        # then fill in your Wazuh API credentials
+uv sync
+uv run scripts/call_tool.py                    # list the available tools
+uv run scripts/call_tool.py get_manager_info   # call one
+```
+
+Or explore it interactively with the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
+
+```bash
+npx @modelcontextprotocol/inspector uv run wazuh-mcp
+```
+
+### Tools
+
+| Tool               | Source      | Description                                |
+|--------------------|-------------|--------------------------------------------|
+| `get_manager_info` | Manager API | Manager version, OS and installation info. |
+
 ## Roadmap
 
 - [x] Reproducible local Wazuh lab
-- [ ] MCP server skeleton + Wazuh API client (JWT auth)
+- [x] MCP server skeleton + Wazuh API client (JWT auth)
 - [ ] Read-only tools: agents, alerts, rules
 - [ ] CLI agent with Ollama tool calling
 - [ ] Tests + CI
